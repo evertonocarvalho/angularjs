@@ -9,8 +9,22 @@
 		<script src="../lib/angular/listaTelefonica.js"></script>
 	</head>
 	<body data-ng-controller="listaTelefonicaController">
-		<div class="jumbotron">
-			<h4 data-ng-bind="app"></h4>
+		<div class="container jumbotron">
+			<h3 data-ng-bind="app"></h3>
+			<table class="table table-striped text-left">
+				<tr>
+					<th>Nome</th>
+					<th>Telefone</th>
+				</tr>
+				<tr data-ng-repeat="contato in contatos">
+					<td>{{contato.nome}}</td>
+					<td>{{contato.telefone}}</td>
+				</tr>
+			</table>
+			<hr/>
+			<input class="form-control" type="text" data-ng-model="contato.nome" placeholder="Nome"/>
+			<input class="form-control" type="text" data-ng-model="contato.telefone" placeholder="Telefone"/>
+			<button class="btn btn-primary btn-block" data-ng-click="adicionarContato(contato)">Adicionar Contato</button>
 		</div>
 	</body>
 </html>
