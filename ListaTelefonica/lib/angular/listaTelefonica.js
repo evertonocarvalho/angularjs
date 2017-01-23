@@ -2,7 +2,7 @@
  * @author Everton Carvalho [evertonocarvalho@gmail.com] 
  */
 
-var app = angular.module("listaTelefonica", []);
+var app = angular.module("listaTelefonica", ["ngMessages"]);
 app.controller("listaTelefonicaController", function ($scope) {
 	$scope.app = "Lista Telefônica";
 
@@ -24,6 +24,7 @@ app.controller("listaTelefonicaController", function ($scope) {
 	$scope.adicionarContato = function (contato) {
 		$scope.contatos.push(angular.copy(contato));
 		delete $scope.contato;
+		$scope.contatoForm.$setPristine();
 	};
 
 	$scope.apagarContatos = function (contatos) {
