@@ -1,0 +1,8 @@
+<div data-ng-if="contatoForm.nome.$dirty && contatoForm.nome.$invalid" data-ng-messages="contatoForm.nome.$error" class="alert alert-danger">
+	<div data-ng-message="required">Por favor, preencha o nome.</div>
+	<div data-ng-message="minlength">O campo nome deve ter no m&iacute;nimo 10 caracteres.</div>
+</div>
+<div data-ng-if="contatoForm.telefone.$dirty && contatoForm.telefone.$invalid" data-ng-messages="contatoForm.telefone.$error" class="alert alert-danger">
+	<div data-ng-message="required">Por favor, preencha o telefone.</div>
+	<div data-ng-message="pattern">O campo telefone deve ter o formato DDDDD-DDDD.</div>
+</div>
