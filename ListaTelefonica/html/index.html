@@ -6,25 +6,29 @@
 		<link rel="stylesheet" type="text/css" href="../lib/bootstrap/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="../lib/bootstrap/app.css">
 		<script src="../lib/angular/angular.js"></script>
+		<script src="../lib/angular/angular-locale_pt-br.js"></script>
 		<script src="../lib/angular/angular-messages.js"></script>
 		<script src="../lib/angular/listaTelefonica.js"></script>
 	</head>
 	<body data-ng-controller="listaTelefonicaController">
 		<div class="container jumbotron">
 			<h3 data-ng-bind="app"></h3>
+			<input type="text" class="form-control" data-ng-model="criterioBusca" placeholder="O que você está buscando?"/>
 			<table data-ng-if="contatos.length > 0" class="table text-left">
 				<tr>
 					<th></th>
-					<th>Nome</th>
-					<th>Telefone</th>
+					<th><a href="" data-ng-click="ordenarPor('nome')">Nome</a></th>
+					<th><a href="" data-ng-click="ordenarPor('telefone')">Telefone</a></th>
 					<th>Operadora</th>
+					<th>Data</th>
 					<th></th>
 				</tr>
-				<tr data-ng-class="{'selecionado negrito': contato.selecionado}" data-ng-repeat="contato in contatos">
+				<tr data-ng-class="{'selecionado negrito': contato.selecionado}" data-ng-repeat="contato in contatos | filter: criterioBusca | orderBy: campoOrdenacao:direcaoOrdenacao">
 					<td><input type="checkbox" data-ng-model="contato.selecionado"/></td>
 					<td>{{contato.nome}}</td>
 					<td>{{contato.telefone}}</td>
-					<td>{{contato.operadora.nome}}</td>
+					<td>{{contato.operadora.nome | lowercase}}</td>
+					<td>{{contato.data | date: 'dd/MM/yyyy HH:mm'}}</td>
 					<td><div style="width: 20px; height: 20px;" data-ng-style="{'background-color': contato.cor}"></div></td>
 				</tr>
 			</table>
@@ -32,7 +36,7 @@
 			<form name="contatoForm">
 				<input class="form-control" type="text" data-ng-model="contato.nome" name="nome" placeholder="Nome" data-ng-required="true" data-ng-minlength="10"/>
 				<input class="form-control" type="text" data-ng-model="contato.telefone" name="telefone" placeholder="Telefone" data-ng-required="true" data-ng-pattern="/^\d{4,5}-\d{4}$/"/>
-				<select class="form-control" data-ng-model="contato.operadora" data-ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+				<select class="form-control" data-ng-model="contato.operadora" data-ng-options="operadora.nome + ' (' + (operadora.preco | currency) + ')' group by operadora.categoria for operadora in operadoras | orderBy: 'nome'">
 					<option value="">Selecione uma operadora</option>
 				</select>
 			</form>
